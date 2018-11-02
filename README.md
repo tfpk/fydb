@@ -26,6 +26,11 @@ The user can still use up/down if necessary, but they are automatically dropped 
 A feature designed for both new and old users, often we want to maintain breakpoints between runs, and we don't want to have to remember files or lines in which breaks occur.
 ActiveComment allows the comment `//b` or `//break if (cond)` to automatically create breakpoints in files. This massively simplifies the process of debugging.
 
+## ValGDB
+
+Primarily for older users, this allows you to setup a debugger on valgrind. It may help decipher memory errors.
+To use, just run `valgdb` inside `gdb ./program`. The program will start inside valgrind.
+
 ## Installation
 
 To install these programs, use this one liner:
