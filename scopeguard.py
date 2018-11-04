@@ -64,13 +64,12 @@ def on_break(event):
         cur_frame = cur_frame.older()
         
     if local_frames:
-        local_frames[0].select()
+        up_log = gdb.execute(f"up-silently {lowest_frame}", to_string=True)
     else:
         print(f"{SCOPE_HEADER} Could not find a local frame!")
         return
 
     if lowest_frame > 0:
-        gdb.execute(f"up {lowest_frame}")
         print(f"{SCOPE_HEADER} Skipped over {lowest_frame} frames to show your function.")
         if len(local_frames) > 1:
             print(f"{SCOPE_HEADER} Use {Style.DIM}f <number>{Style.RESET_ALL} to inspect that function:")
