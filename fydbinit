@@ -1,0 +1,5 @@
+source /home/tfpk/code/gdb_tools/activecomment.py
+source /home/tfpk/code/gdb_tools/scopeguard.py
+source /home/tfpk/code/gdb_tools/valgdb.py
+source /home/tfpk/code/gdb_tools/magi.py
+

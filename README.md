@@ -33,8 +33,14 @@ To use, just run `valgdb` inside `gdb ./program`. The program will start inside 
 
 ## Installation
 
-To install these programs, use this one liner:
+To install these programs, execute the following:
 ```bash
-echo "Command not ready yet."
+cd ~ && git clone github.com/tfpk/gdb_tools
 ```
+Then copy the following into your `~/.bashrc` or `~/.zshrc`.
+```bash
+fydb='gdb -q -ex="source ~/gdb_tools/fydbinit"'
+```
+
+You can then call `fydb` instead of `gdb`.
 
