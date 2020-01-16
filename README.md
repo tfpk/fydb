@@ -15,6 +15,7 @@ These tools are designed for Linux, and specifically for the UNSW CSE environmen
 
 The centerpiece of these tools, Magi aims to give constant helpful information to the user, including the current state of the program, and what commands to run.
 
+![Example](example.png)
 
 ## ScopeGuard
 
