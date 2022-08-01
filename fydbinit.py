@@ -2,7 +2,6 @@ import gdb
 import os
 
 fydb_folder = os.path.dirname(os.path.abspath(os.path.expanduser(__file__)))
-print(__file__)
 
 FILES_TO_SOURCE = [
     "activecomment.py",
