@@ -18,15 +18,22 @@ init()
 MAGI_HEADER = f"{Fore.BLUE+Style.BRIGHT}[MAGI]{Style.RESET_ALL}:"
 print(f"{MAGI_HEADER} Magi active. Disable with magi off")
 
+START_PANEL = f"""{Fore.BLUE+Style.BRIGHT}[GETTING STARTED]{Style.RESET_ALL}
+- Type {Style.DIM}r{Style.RESET_ALL} to start the program
+- Type {Style.DIM}b function_name{Style.RESET_ALL} to schedule a stop at a function.
+- Type {Style.DIM}tb file:line_num{Style.RESET_ALL} to schedule a stop in file at line_num.
+"""
+print(START_PANEL)
+
 HELP_PANEL = f"""[SHORTCUT HINTS]
-- {Style.DIM}info locals{Style.RESET_ALL}: list local vars 
-- {Style.DIM}p <var>{Style.RESET_ALL}: print value of var  
-- {Style.DIM}finish{Style.RESET_ALL}: go to end of func    
-- {Style.DIM}b <where>{Style.RESET_ALL} always stop here   
-- {Style.DIM}tb <where>{Style.RESET_ALL}: stop here once   
-- {Style.DIM}n{Style.RESET_ALL}: go to next line           
-- {Style.DIM}c{Style.RESET_ALL}: keep going til next break 
-|{Style.BRIGHT}<where> can be:{Style.RESET_ALL}               
+- {Style.DIM}info locals{Style.RESET_ALL}: list local vars
+- {Style.DIM}p <var>{Style.RESET_ALL}: print value of var
+- {Style.DIM}finish{Style.RESET_ALL}: go to end of func
+- {Style.DIM}b <place>{Style.RESET_ALL} always stop here
+- {Style.DIM}tb <place>{Style.RESET_ALL}: stop here once
+- {Style.DIM}n{Style.RESET_ALL}: go to next line
+- {Style.DIM}c{Style.RESET_ALL}: keep going til next break
+|{Style.BRIGHT}<place> can be a:{Style.RESET_ALL}
 - func name (e.g. main)       
 - file:num (e.g. myfile.c:37) 
 - +line (e.g. +1 = next line)"""
@@ -34,6 +41,19 @@ MAX_HELP_LEN = 30
 
 PRINT_BEFORE = 4
 PRINT_AFTER = 6
+
+def get_num_ansi_chars(text):
+    """
+    Get the number of characters used to do ansi formatting.
+
+    """
+    ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
+    result = ansi_escape.sub('', text)
+    return len(text) - len(result)
+
+def ansi_ljust(text, width):
+    return text.ljust(width + get_num_ansi_chars(text))
+
 
 def get_gdb_lines(start, end):
     to_return = ""
@@ -78,7 +98,7 @@ def get_info_prompt(line):
         if is_title_line:
             prompt += Back.BLUE
 
-        prompt += f"{help_panel_line:31} {Style.DIM}|{Style.NORMAL} {src_line}"
+        prompt += f"{ansi_ljust(help_panel_line, 32)} {Style.DIM}|{Style.NORMAL} {src_line}"
         
         if is_title_line:
             prompt += Style.RESET_ALL
@@ -118,7 +138,7 @@ def prompt(prev_prompt):
 
 gdb.prompt_hook = prompt
 
-class ScopeGuardToggle(gdb.Command):
+class MagiToggle(gdb.Command):
     def __init__(self, name):
         super().__init__(name, gdb.COMMAND_USER)
 
@@ -132,4 +152,4 @@ class ScopeGuardToggle(gdb.Command):
         else:
             print("magi used incorrectly. use magi [on/off]")
 
-ScopeGuardToggle("magi")
+MagiToggle("magi")

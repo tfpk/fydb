@@ -1,5 +1,4 @@
-source ~/gdb_tools/activecomment.py
-source ~/gdb_tools/scopeguard.py
-source ~/gdb_tools/valgdb.py
-source ~/gdb_tools/magi.py
-
+source ~/fydb/activecomment.py
+source ~/fydb/scopeguard.py
+source ~/fydb/valgdb.py
+source ~/fydb/magi.py
