@@ -53,7 +53,7 @@ def get_user_source_files():
 
 
 def get_source_lines():
-    GET_SOURCE_CMD = "l {f_name}:1, 1000000"
+    GET_SOURCE_CMD = "with listsize 0 -- l {f_name}:1,"
         
     SOURCE = {}
 

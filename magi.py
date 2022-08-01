@@ -55,10 +55,10 @@ def ansi_ljust(text, width):
     return text.ljust(width + get_num_ansi_chars(text))
 
 
-def get_gdb_lines(start, end):
+def get_gdb_lines(start, nlines):
     to_return = ""
     try:
-        to_return = gdb.execute(f"l {start}, {end}", to_string=True)
+        to_return = gdb.execute(f"with listsize {nlines} -- l {start},", to_string=True)
     except gdb.error as e:
         # cannot get lines
         return None
@@ -79,8 +79,7 @@ def get_info_prompt(line):
     prompt = ""
 
     before_line = max(1, cur_line_num - PRINT_BEFORE)
-    after_line = cur_line_num + PRINT_AFTER
-    gdb_lines = get_gdb_lines(before_line, after_line)
+    gdb_lines = get_gdb_lines(before_line, PRINT_BEFORE + PRINT_AFTER + 1)
     
     if gdb_lines is None:
         gdb_lines = [f"{Fore.RED}Could not get lines.{Style.RESET_ALL}"] + [""]*10
