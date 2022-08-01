@@ -1,4 +1,0 @@
-source ~/fydb/activecomment.py
-source ~/fydb/scopeguard.py
-source ~/fydb/valgdb.py
-source ~/fydb/magi.py

@@ -32,16 +32,13 @@ ActiveComment allows the comment `//b` or `//break if (cond)` to automatically c
 Primarily for older users, this allows you to setup a debugger on valgrind. It may help decipher memory errors.
 To use, just run `valgdb` inside `gdb ./program`. The program will start inside valgrind.
 
-## Installation
+## Automated Installation
 
-To install these programs, execute the following:
-```bash
-cd ~ && git clone github.com/tfpk/gdb_tools
-```
-Then copy the following into your `~/.bashrc` or `~/.zshrc`.
-```bash
-fydb='gdb -q -ex="source ~/gdb_tools/fydbinit"'
-```
+On CSE, instead of `gdb`, run `~apps/bin/fydb`.
 
-You can then call `fydb` instead of `gdb`.
+On your own machine, you can run this one line command.
+
+``` bash
+$ (cd ~ && git clone https://github.com/tfpk/fydb .fydb && echo 'gdb -q -iex="source ~/.fydb/fydbinit"' >> ~/.bashrc && echo 'gdb -q -iex="source ~/.fydb/fydbinit"' >> ~/.zshrc)
+```
 
