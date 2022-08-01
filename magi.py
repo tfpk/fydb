@@ -14,6 +14,7 @@ import traceback
 from colorama import *
 
 init()
+gdb.magi_active = True
 
 MAGI_HEADER = f"{Fore.BLUE+Style.BRIGHT}[MAGI]{Style.RESET_ALL}:"
 print(f"{MAGI_HEADER} Magi active. Disable with magi off")
@@ -41,6 +42,7 @@ MAX_HELP_LEN = 30
 
 PRINT_BEFORE = 4
 PRINT_AFTER = 6
+
 
 def get_num_ansi_chars(text):
     """
@@ -112,6 +114,8 @@ def make_prompt(s):
     return f"{Fore.WHITE+Style.BRIGHT}({Fore.BLUE}GDB @{Style.RESET_ALL} {s}{Style.BRIGHT+Fore.WHITE}){Style.RESET_ALL} "
 
 def prompt(prev_prompt):
+    if not gdb.magi_active:
+        return prev_prompt
     try:
         frame = gdb.execute("frame", to_string=True)
     except gdb.error as e:
@@ -143,11 +147,11 @@ class MagiToggle(gdb.Command):
 
     def invoke(self, arg, from_tty):
         if arg.lower() in ["off", "false"]:
-            gdb.sg_active = False
-            print(f"{MAGI} Magi inactive.")
+            gdb.magi_active = False
+            print(f"{MAGI_HEADER} Magi inactive.")
         elif arg.lower() in ["on", "true"]:
-            gdb.sg_active = True
-            print(f"{MAGI} Magi active.")
+            gdb.magi_active = True
+            print(f"{MAGI_HEADER} Magi active.")
         else:
             print("magi used incorrectly. use magi [on/off]")
 
