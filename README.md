@@ -39,6 +39,6 @@ On CSE, instead of `gdb`, run `~apps/bin/fydb`.
 On your own machine, you can run this one line command.
 
 ``` bash
-$ (cd ~ && git clone https://github.com/tfpk/fydb .fydb && echo 'gdb -q -nx -iex="source ~/.fydb/fydbinit"' >> ~/.bashrc && echo 'gdb -q -nx -iex="source ~/.fydb/fydbinit"' >> ~/.zshrc)
+$ (cd ~ && git clone https://github.com/tfpk/fydb .fydb && echo 'gdb -q  -iex="source ~/.fydb/fydbinit"' >> ~/.bashrc && echo 'gdb -q -iex="source ~/.fydb/fydbinit"' >> ~/.zshrc)
 ```
 
